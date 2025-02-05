@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">Ft_Hangout</string>
+    <string name="numTel">Numéro de téléphone</string>
+    <string name="contactName">Nom du contact</string>
+    <string name="FabAddContact">Ajouter un contact</string>
+    <string name="firstname">Prénom</string>
+    <string name="lastname">Nom</string>
+    <string name="number">Numéro de tel</string>
+    <string name="avatar">Avatar</string>
+
+</resources>

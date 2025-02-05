@@ -1,0 +1,58 @@
+# === Android / Gradle ===
+.gradle/
+local.properties
+/.idea/caches/
+/.idea/libraries/
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/misc.xml
+
+# === Compiled source ===
+*.class
+*.dex
+
+# === Generated files ===
+/out/
+/build/
+/captures/
+/navigation.json
+
+# === Signing / Keystore ===
+*.keystore
+*.jks
+
+# === Gradle Wrapper ===
+/gradle/wrapper/gradle-wrapper.properties
+/gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.zip
+/.gradle/
+/.gradle/*
+
+# === Log files ===
+/log/
+/logs/
+*.log
+
+# === Miscellaneous ===
+/*.iml
+/.DS_Store
+/thumbs.db
+*.swp
+*.swo
+*.swn
+
+# === Android Studio Specific ===
+/captures/
+/.idea/
+
+# === SQLite Databases ===
+*.db
+*.db-shm
+*.db-wal
+
+# === External Libraries ===
+/.externalNativeBuild/
+.cxx/
+
