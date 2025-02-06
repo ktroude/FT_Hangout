@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -57,6 +58,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public Contact getContactById(Integer id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Contact contact = null;
+
+        String query = "SELECT * FROM contacts WHERE id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+
+        if (cursor.moveToFirst()) {
+            contact = new Contact(
+                    cursor.getInt(0),    // id
+                    cursor.getString(1), // firstname
+                    cursor.getString(2), // lastname
+                    cursor.getString(3), // email
+                    cursor.getString(4), // address
+                    cursor.getString(5), // telNumber
+                    cursor.getString(6)  // picture (Base64)
+            );
+        }
+
+        cursor.close();
+        db.close();
+        return contact;
+    }
+
+
     public void deleteContact(Contact contact){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -95,6 +121,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("picture", contact.getPicture());
 
         db.update("contacts", values, whereClause, whereArgs);
+
+        Contact updatedContact = getContactById(contact.getId());
+        Log.d("db helper", updatedContact.toString());
 
         db.close();
     }

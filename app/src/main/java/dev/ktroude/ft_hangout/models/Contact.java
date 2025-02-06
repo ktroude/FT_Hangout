@@ -1,5 +1,7 @@
 package dev.ktroude.ft_hangout.models;
 
+import androidx.annotation.NonNull;
+
 public class Contact {
     private Integer id;
     private String firstname;
@@ -79,5 +81,18 @@ public class Contact {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "telNumber='" + telNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

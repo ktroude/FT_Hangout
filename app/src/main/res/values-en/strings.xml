@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Ft_Hangout</string>
+    <string name="numTel">Phone number</string>
+    <string name="contactName">Contact name</string>
+    <string name="FabAddContact">Add contact</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="avatar">Picture</string>
+    <string name="add">Add +</string>
+    <string name="address">Address</string>
+    <string name="email">Email</string>
+    <string name="contact_added">Contact added !</string>
+    <string name="error_contact_added">Error: Please fill in at least your first or last name and phone number</string>
+    <string name="change_profil_picture">Change profile picture</string>
+    <string name="no_contact">No contact yet …</string>
+    <string name="call">Call</string>
+    <string name="msg">Send message</string>
+    <string name="edit">Edit contact</string>
+    <string name="delete">Delete contact</string>
+    <string name="change_color">Change color</string>
+    <string name="select_color">Select a color</string>
+    <string name="red">Red</string>
+    <string name="blue">Blue</string>
+    <string name="green">Green</string>
+    <string name="yellow">Yellow</string>
+    <string name="magenta">Purple</string>
+</resources>

@@ -5,7 +5,24 @@
     <string name="FabAddContact">Ajouter un contact</string>
     <string name="firstname">Prénom</string>
     <string name="lastname">Nom</string>
-    <string name="number">Numéro de tel</string>
     <string name="avatar">Avatar</string>
+    <string name="add">Ajouter +</string>
+    <string name="address">Adresse</string>
+    <string name="email">Email</string>
+    <string name="contact_added">Contact ajouté ! </string>
+    <string name="error_contact_added">Erreur : Remplissez au minimum nom ou prenom et numero de tel</string>
+    <string name="change_profil_picture">Changer la photo de profil</string>
+    <string name="no_contact">Aucun contact pour le moment …</string>
+    <string name="call">Appeler</string>
+    <string name="msg">Envoyer un sms</string>
+    <string name="edit">Editer le contact</string>
+    <string name="delete">Supprimer le contact</string>
+    <string name="change_color">Changer la couleur</string>
+    <string name="select_color">Choisir une couleur</string>
+    <string name="red">Rouge</string>
+    <string name="blue">Bleu</string>
+    <string name="green">Vert</string>
+    <string name="yellow">Jaune</string>
+    <string name="magenta">Violet</string>
 
 </resources>

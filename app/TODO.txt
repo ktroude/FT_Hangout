@@ -1,0 +1,6 @@
+
+• Receive text messages from recorded contacts.
+• Send text messages to your contacts.
+• You have a clear conversation history that properly shows the sender and the receiver.
+• Create a menu that will allow you to change the header color.
+• Show the time the app was set in the background when returning to the app.
