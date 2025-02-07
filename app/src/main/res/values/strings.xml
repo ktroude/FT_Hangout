@@ -24,5 +24,6 @@
     <string name="green">Vert</string>
     <string name="yellow">Jaune</string>
     <string name="magenta">Violet</string>
+    <string name="id_error">Erreur : Contact introuvable</string>
 
 </resources>

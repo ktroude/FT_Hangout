@@ -38,6 +38,13 @@ public class ContactDetailsActivity extends AppCompatActivity {
                 }
             });
 
+    private final ActivityResultLauncher<Intent> messageLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    loadContactData();
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +54,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
 
         contactId = getIntent().getIntExtra("contact_id", -1);
         if (contactId == -1) {
-            Toast.makeText(this, "Erreur : Contact introuvable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.id_error), Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -80,7 +87,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
             textViewAddress.setText(contact.getAddress());
 //            imageViewProfile.setImage(contact.getPicture());
         } catch (Exception e) {
-            Toast.makeText(this, "Erreur : Contact introuvable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.id_error), Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -100,7 +107,9 @@ public class ContactDetailsActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-
+        Intent intent = new Intent(this, MessageActivity.class);
+        intent.putExtra("contact_id", contactId);
+        messageLauncher.launch(intent);
     }
 
     private void editContact(View view) {

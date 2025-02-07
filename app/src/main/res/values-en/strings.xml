@@ -25,4 +25,6 @@
     <string name="green">Green</string>
     <string name="yellow">Yellow</string>
     <string name="magenta">Purple</string>
+    <string name="id_error">Error : Contact not found</string>
+
 </resources>

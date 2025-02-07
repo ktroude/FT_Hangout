@@ -1,6 +1,7 @@
 package dev.ktroude.ft_hangout.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +33,7 @@ import dev.ktroude.ft_hangout.R;
 import dev.ktroude.ft_hangout.adapters.ContactAdapter;
 import dev.ktroude.ft_hangout.database.DatabaseHelper;
 import dev.ktroude.ft_hangout.models.Contact;
-
+import dev.ktroude.ft_hangout.models.Message;
 
 
 public class MainActivity extends AppCompatActivity {
