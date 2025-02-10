@@ -26,5 +26,9 @@
     <string name="yellow">Yellow</string>
     <string name="magenta">Purple</string>
     <string name="id_error">Error : Contact not found</string>
+    <string name="toast_pause">Application paused during </string>
+    <string name="send">Send message</string>
+    <string name="perm_added">Permission granted!</string>
+    <string name="perm_denied">Permission denied! SMS sending is disabled.</string>
 
 </resources>

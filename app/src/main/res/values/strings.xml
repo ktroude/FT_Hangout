@@ -25,5 +25,9 @@
     <string name="yellow">Jaune</string>
     <string name="magenta">Violet</string>
     <string name="id_error">Erreur : Contact introuvable</string>
+    <string name="toast_pause">L\'application a été mise en pause pendant </string>
+    <string name="send">Envoyer le message</string>
+    <string name="perm_added">Permission accordée !</string>
+    <string name="perm_denied">Permission refusée ! L\'envoi de SMS est désactivé.</string>
 
 </resources>

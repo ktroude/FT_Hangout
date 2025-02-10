@@ -1,5 +1,6 @@
 package dev.ktroude.ft_hangout.database;
 
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -55,7 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addContact(Contact contact) {
+    public Integer addContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -66,8 +67,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("telNumber", contact.getTelNumber());
         values.put("picture", contact.getPicture());
 
-        db.insert("contacts", null, values);
+        long contactId = db.insert("contacts", null, values);
         db.close();
+        return (contactId != -1) ? (int) contactId : 0;
     }
 
     public Contact getContactById(Integer id) {
@@ -89,6 +91,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             );
         }
 
+        cursor.close();
+        db.close();
+        return contact;
+    }
+
+    public Contact getContactByNumber(String telNumber) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Contact contact = null;
+
+        String query = "SELECT * FROM contacts WHERE telNumber = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{telNumber});
+
+        if (cursor.moveToFirst()) {
+            contact = new Contact(
+                    cursor.getInt(0),    // id
+                    cursor.getString(1), // firstname
+                    cursor.getString(2), // lastname
+                    cursor.getString(3), // email
+                    cursor.getString(4), // address
+                    cursor.getString(5), // telNumber
+                    cursor.getString(6)  // picture (Base64)
+            );
+        }
         cursor.close();
         db.close();
         return contact;

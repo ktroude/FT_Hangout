@@ -22,7 +22,7 @@ import dev.ktroude.ft_hangout.models.Message;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private List<Message> messageList;
+    private final List<Message> messageList;
 
     public MessageAdapter(List<Message> messages) {
         this.messageList = messages;
