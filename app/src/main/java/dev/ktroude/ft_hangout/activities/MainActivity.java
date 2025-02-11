@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
     private static final int PERMISSION_REQUEST_CODE = 1;
 
-
     /**
      * Called when the activity is first created. Sets up UI components and
      * initializes necessary data.
@@ -131,14 +130,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         loadContacts();
         registerSmsReceiver();
-
-        if (MainApplication.getLifecycleTracker().wasInBackground()) {
-            showTimeInBackgroundToast();
-        }
     }
+
+
 
     /**
      * BroadcastReceiver that listens for new SMS messages.
@@ -183,26 +179,6 @@ public class MainActivity extends AppCompatActivity {
                 filter,
                 ContextCompat.RECEIVER_NOT_EXPORTED
         );
-    }
-
-    /**
-     * Displays a toast showing how long the app was in the background.
-     */
-    private void showTimeInBackgroundToast() {
-        SharedPreferences preferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
-        long lastExitTime = preferences.getLong("last_exit_time", 0);
-
-        if (lastExitTime != 0) {
-            long diffInMillis = System.currentTimeMillis() - lastExitTime;
-            long diffInSeconds = diffInMillis / 1000;
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-            String formattedDate = sdf.format(new Date(lastExitTime));
-
-            String toastMsg = formattedDate + "\n" + getString(R.string.toast_pause) + " " + diffInSeconds + " sec";
-            Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     /**

@@ -23,13 +23,6 @@ local.properties
 *.keystore
 *.jks
 
-# === Gradle Wrapper ===
-/gradle/wrapper/gradle-wrapper.properties
-/gradle/wrapper/gradle-wrapper.jar
-/gradle/wrapper/gradle-wrapper.zip
-/.gradle/
-/.gradle/*
-
 # === Log files ===
 /log/
 /logs/
