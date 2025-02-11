@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast tooltip = Toast.makeText(this, getString(R.string.change_color), Toast.LENGTH_SHORT);
                     View view = tooltip.getView();
                     assert view != null;
-                    view.setBackgroundColor(Color.BLUE);
+                    view.setBackgroundColor(getResources().getColor(R. color. purple_700));
                         TextView text = view.findViewById(android.R.id.message);
                         if (text != null) {
                             text.setTextColor(Color.WHITE);
