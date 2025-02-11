@@ -1,12 +1,10 @@
 package dev.ktroude.ft_hangout.database;
 
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -16,15 +14,29 @@ import java.util.List;
 import dev.ktroude.ft_hangout.models.Contact;
 import dev.ktroude.ft_hangout.models.Message;
 
+/**
+ * DatabaseHelper is a SQLite database helper class for managing the storage of contacts and messages.
+ * It provides methods to create, update, delete, and retrieve contacts and messages.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "contacts.db";
     private static final int DATABASE_VERSION = 2;
 
+    /**
+     * Constructor for DatabaseHelper.
+     *
+     * @param context The context of the application.
+     */
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Creates the database schema when the database is first initialized.
+     *
+     * @param db The database instance.
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable =
@@ -49,6 +61,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createMessagesTable);
     }
 
+    /**
+     * Handles database upgrades by dropping and recreating the tables.
+     *
+     * @param db         The database instance.
+     * @param oldVersion The previous database version.
+     * @param newVersion The new database version.
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS messages");
@@ -56,6 +75,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Adds a new contact to the database.
+     *
+     * @param contact The contact object to be added.
+     * @return The ID of the newly added contact or 0 if the insertion failed.
+     */
     public Integer addContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -72,6 +97,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return (contactId != -1) ? (int) contactId : 0;
     }
 
+    /**
+     * Retrieves a contact by its ID.
+     *
+     * @param id The ID of the contact.
+     * @return The corresponding Contact object or null if not found.
+     */
     public Contact getContactById(Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Contact contact = null;
@@ -96,6 +127,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return contact;
     }
 
+    /**
+     * Retrieves a contact by their phone number.
+     *
+     * @param telNumber The phone number of the contact.
+     * @return The corresponding Contact object or null if not found.
+     */
     public Contact getContactByNumber(String telNumber) {
         SQLiteDatabase db = this.getReadableDatabase();
         Contact contact = null;
@@ -120,34 +157,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void deleteContact(Contact contact){
+    /**
+     * Deletes a contact by ID.
+     *
+     * @param id The ID of the contact to be deleted.
+     */
+    public void deleteContact(Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String contactId = String.valueOf(contact.getId());
-        String whereClause = "id = ?";
-        String[] whereArgs = new String[]{contactId};
-
-        db.delete("contacts", whereClause, whereArgs);
+        db.delete("contacts", "id = ?", new String[]{String.valueOf(id)});
         db.close();
     }
 
-    public void deleteContact(Integer id){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String contactId = String.valueOf(id);
-        String whereClause = "id = ?";
-        String[] whereArgs = new String[]{contactId};
-
-        db.delete("contacts", whereClause, whereArgs);
-        db.close();
-    }
-
+    /**
+     * Updates an existing contact in the database.
+     *
+     * @param contact The updated contact object.
+     */
     public void updateContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String contactId = String.valueOf(contact.getId());
-        String whereClause = "id = ?";
-        String[] whereArgs = new String[]{contactId};
 
         ContentValues values = new ContentValues();
         values.put("firstname", contact.getFirstname());
@@ -157,30 +184,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("telNumber", contact.getTelNumber());
         values.put("picture", contact.getPicture());
 
-        db.update("contacts", values, whereClause, whereArgs);
-
-        Contact updatedContact = getContactById(contact.getId());
-        Log.d("db helper", updatedContact.toString());
-
+        db.update("contacts", values, "id = ?", new String[]{String.valueOf(contact.getId())});
         db.close();
     }
 
+    /**
+     * Retrieves all contacts from the database.
+     *
+     * @return A list of all contacts.
+     */
     public List<Contact> getAllContacts() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         List<Contact> contactList = new ArrayList<>();
 
-        String query = "SELECT * FROM contacts";
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM contacts", null);
         if (cursor.moveToFirst()) {
             do {
                 Contact contact = new Contact(
-                    cursor.getInt(0),  // id
-                    cursor.getString(1), // firstname
-                    cursor.getString(2), // lastname
-                    cursor.getString(3), // email
-                    cursor.getString(4), // address
-                    cursor.getString(5), // telNumber
-                    cursor.getString(6)  // picture (Base64)
+                        cursor.getInt(0),  // id
+                        cursor.getString(1), // firstname
+                        cursor.getString(2), // lastname
+                        cursor.getString(3), // email
+                        cursor.getString(4), // address
+                        cursor.getString(5), // telNumber
+                        cursor.getString(6)  // picture (Base64)
                 );
                 contactList.add(contact);
             } while (cursor.moveToNext());
@@ -190,12 +217,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return contactList;
     }
 
-    public List<Message> getAllMessageFromContact(Integer contactId){
+    /**
+     * Retrieves all messages for a specific contact.
+     *
+     * @param contactId The ID of the contact.
+     * @return A list of messages associated with the contact.
+     */
+    public List<Message> getAllMessageFromContact(Integer contactId) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Message> messageList = new ArrayList<>();
 
-        String query = "SELECT * FROM messages WHERE contactId = " + contactId;
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM messages WHERE contactId = ?", new String[]{String.valueOf(contactId)});
         if (cursor.moveToFirst()) {
             do {
                 Message message = new Message(
@@ -203,7 +235,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getInt(1),       // contactId
                         cursor.getString(2),    // msg
                         cursor.getLong(3),      // date
-                        cursor.getInt(4) == 1    // isSend
+                        cursor.getInt(4) == 1   // isSend
                 );
                 messageList.add(message);
             } while (cursor.moveToNext());
@@ -213,28 +245,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return messageList;
     }
 
-    public Message getMessageById(Integer messageId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Message message = null;
-
-        String query = "SELECT * FROM contacts WHERE id = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(messageId)});
-
-        if (cursor.moveToFirst()) {
-            message = new Message(
-                    cursor.getInt(0),       // id
-                    cursor.getInt(1),       // contactId
-                    cursor.getString(2),    // msg
-                    cursor.getLong(3),      // date
-                    cursor.getInt(4) == 1    // isSend
-            );
-        }
-
-        cursor.close();
-        db.close();
-        return message;
-    }
-
+    /**
+     * Adds a new message to the database.
+     *
+     * @param message The message object to be stored.
+     */
     public void addMessage(Message message) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -247,6 +262,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert("messages", null, values);
         db.close();
     }
-
-
 }
+
